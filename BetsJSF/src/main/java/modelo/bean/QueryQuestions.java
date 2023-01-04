@@ -1,45 +1,50 @@
 package modelo.bean;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.convert.Converter;
 
+import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
-import configuration.UtilDate;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Date;
 
 @ManagedBean
 @SessionScoped
-public class CreateQuestionBean {
+public class QueryQuestions {
+
 	private List<Event> events;
 	private List<Question> questions;
-	private String newQuestion;
+	private Question question;
 	private Event selectedEvent;
 	private Date selectedDate;
+	private Question selectedQuestion;
 	private List<Event> allEvents;
-	private float bet;
-	private String message;
+	private List<Question> allQuestions;
 	private Converter eventConverter;
-	
+	private Converter questionConverter;
 
-	public CreateQuestionBean() {
+	public QueryQuestions() {
 		events = new ArrayList<Event>();
 		questions = new ArrayList<Question>();
 		allEvents = new ArrayList<Event>();
+		allQuestions = new ArrayList<Question>();
 		addEvents();
-		for(Event event: allEvents) {
-			System.out.println(event.getEventDate());
-		}
 		eventConverter = new EventConverter(allEvents);
+		questionConverter = new QuestionConverter(allQuestions);
 	}
-	
+
 	public Converter getEventConverter() {
-	    return eventConverter;
-	  }
+		return eventConverter;
+	}
+
+	public Converter getQuestionConverter() {
+		return questionConverter;
+	}
 
 	public List<Event> getEvents() {
 		return events;
@@ -50,28 +55,28 @@ public class CreateQuestionBean {
 	}
 
 	public List<Question> getQuestions() {
+		System.out.println("getQuestions");
 		return questions;
 	}
 
 	public void setQuestions(List<Question> questions) {
+		System.out.println("setQuestions");
 		this.questions = questions;
 	}
 
-	public String getNewQuestion() {
-		return newQuestion;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setNewQuestion(String newQuestion) {
-		this.newQuestion = newQuestion;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 	public Event getSelectedEvent() {
-		System.out.println("getSelectedEvent ");
 		return selectedEvent;
 	}
 
 	public void setSelectedEvent(Event selectedEvent) {
-		System.out.println("setSelectedEvent ");
 		this.selectedEvent = selectedEvent;
 	}
 
@@ -82,23 +87,15 @@ public class CreateQuestionBean {
 	public void setSelectedDate(Date selectedDate) {
 		this.selectedDate = selectedDate;
 	}
-	
-	public float getBet() {
-        return bet;
-    }
 
-    public void setBet(float bet) {
-        this.bet = bet;
-    }
-    
-    public String getMessage() {
-        return message;
-    }
+	public Question getSelectedQuestion() {
+		return selectedQuestion;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
+	public void setSelectedQuestion(Question selectedQuestion) {
+		this.selectedQuestion = selectedQuestion;
+	}
+
 	private void addEvents() {
 
 		Calendar today = Calendar.getInstance();
@@ -145,7 +142,14 @@ public class CreateQuestionBean {
 		q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
 		q5=ev17.addQuestion("¿Quién ganará el partido?",1);
 		q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
-		
+
+		allQuestions.add(q1);
+		allQuestions.add(q2);
+		allQuestions.add(q3);
+		allQuestions.add(q4);
+		allQuestions.add(q5);
+		allQuestions.add(q6);
+
 		allEvents.add(ev1);
 		allEvents.add(ev2);
 		allEvents.add(ev3);
@@ -167,57 +171,56 @@ public class CreateQuestionBean {
 		allEvents.add(ev19);
 		allEvents.add(ev20);
 	}
-	
+
 	public void updateEvents() {
 		System.out.println("updateEvents for date: " + selectedDate);
+		questions.clear();
 		events = getEventsForDate(selectedDate);
 		if (!events.isEmpty()) {
-		    selectedEvent = events.get(0);
-		  }
-		System.out.println(selectedEvent.getDescription());
-	}
-	
-	public List<Event> getEventsForDate(Date date) {
-	    Calendar selectedDateCal = Calendar.getInstance();
-	    selectedDateCal.setTime(date);
-	    int selectedYear = selectedDateCal.get(Calendar.YEAR);
-	    int selectedMonth = selectedDateCal.get(Calendar.MONTH);
-	    int selectedDay = selectedDateCal.get(Calendar.DAY_OF_MONTH);
-
-	    List<Event> eventsForDate = new ArrayList<Event>();
-	    for (Event event : allEvents) {
-	        Calendar eventDateCal = Calendar.getInstance();
-	        eventDateCal.setTime(event.getEventDate());
-	        int eventYear = eventDateCal.get(Calendar.YEAR);
-	        int eventMonth = eventDateCal.get(Calendar.MONTH);
-	        int eventDay = eventDateCal.get(Calendar.DAY_OF_MONTH);
-
-	        if (eventYear == selectedYear && eventMonth == selectedMonth && eventDay == selectedDay) {
-	            eventsForDate.add(event);
-	        }
-	    }
-	    return eventsForDate;
-	}
-	
-	public void addQuestion() {
-	    // add the new question to the list of questions
-	    Question question = new Question();
-	    question.setQuestion(newQuestion);
-	    System.out.println(selectedEvent);
-	    if (selectedEvent != null) {
-	        question.setEvent(selectedEvent);
-	        questions.add(question);
-	        selectedEvent.addQuestion(newQuestion, bet);
-	        newQuestion = "";
-	        message = "Question added.";
-	    } else {
-	        message = "Question not added. Event null.";
-	    }
-	}
-	
-	public void updateSelectedEvent() {
-		System.out.println("updateSelectedEvent method trigged.");
-		  // No additional code needed
+			selectedEvent = events.get(0);
+			System.out.println(selectedEvent.getDescription());
 		}
+	}
 
+	public List<Event> getEventsForDate(Date date) {
+		Calendar selectedDateCal = Calendar.getInstance();
+		selectedDateCal.setTime(date);
+		int selectedYear = selectedDateCal.get(Calendar.YEAR);
+		int selectedMonth = selectedDateCal.get(Calendar.MONTH);
+		int selectedDay = selectedDateCal.get(Calendar.DAY_OF_MONTH);
+
+		List<Event> eventsForDate = new ArrayList<Event>();
+		for (Event event : allEvents) {
+			Calendar eventDateCal = Calendar.getInstance();
+			eventDateCal.setTime(event.getEventDate());
+			int eventYear = eventDateCal.get(Calendar.YEAR);
+			int eventMonth = eventDateCal.get(Calendar.MONTH);
+			int eventDay = eventDateCal.get(Calendar.DAY_OF_MONTH);
+
+			if (eventYear == selectedYear && eventMonth == selectedMonth && eventDay == selectedDay) {
+				eventsForDate.add(event);
+			}
+		}
+		return eventsForDate;
+	}
+
+	public void updateSelectedEvent() {
+		System.out.println("updateSelectedEvent method triggered.");
+		System.out.println("Updating questions list...");
+		if(selectedEvent!=null) {
+			questions = getQuestionsForEvent(selectedEvent);
+			System.out.println("System detects " + questions.size() + " questions.");
+		}
+	}
+
+	public List<Question> getQuestionsForEvent(Event event){
+		System.out.println("getQuestionsForEvent method triggered.");
+		List<Question> questions = event.getQuestions();
+		System.out.println("Event " + event.getDescription() + "has " + questions.size() + " questions.");
+		return questions;
+	}
+	
+	public void updateSelectedQuestion() {
+		// No additional code needed
+	}
 }
