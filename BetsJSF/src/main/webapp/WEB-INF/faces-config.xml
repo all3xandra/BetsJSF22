@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config
-    xmlns="http://Java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-    version="2.0">
+<faces-config xmlns="http://Java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
 	<managed-bean>
 		<managed-bean-name>cq</managed-bean-name>
-		<managed-bean-class>modelo.bean.CreateQuestionBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.CreateQuestionBean
+		</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
@@ -26,5 +26,4 @@
 			<to-view-id>/QueryQuestions.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
 </faces-config>

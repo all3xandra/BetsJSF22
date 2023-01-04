@@ -1,6 +1,7 @@
 package modelo.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.convert.Converter;
 
 import domain.Event;
 import domain.Question;
@@ -20,28 +21,46 @@ public class CreateQuestionBean {
 	private Event selectedEvent;
 	private Date selectedDate;
 	private List<Event> allEvents;
+	private float bet;
+	private String message;
+	private Converter eventConverter;
+	
 
 	public CreateQuestionBean() {
 		events = new ArrayList<Event>();
 		questions = new ArrayList<Question>();
 		allEvents = new ArrayList<Event>();
 		addEvents();
+		for(Event event: allEvents) {
+			System.out.println(event.getEventDate());
+		}
+		eventConverter = new EventConverter(allEvents);
 	}
+	
+	public Converter getEventConverter() {
+	    return eventConverter;
+	  }
 
 	public void addQuestion() {
-		// add the new question to the list of questions
-		Question question = new Question();
-		question.setQuestion(newQuestion);
-		if(selectedEvent!=null) {
-			question.setEvent(selectedEvent);
-			questions.add(question);
-			newQuestion = "";
-			System.out.println("Question added.");
-		} else {
-			System.out.println("Question not added. Event null.");
-		}
-
+	    // add the new question to the list of questions
+	    Question question = new Question();
+	    question.setQuestion(newQuestion);
+	    System.out.println(selectedEvent);
+	    if (selectedEvent != null) {
+	        question.setEvent(selectedEvent);
+	        questions.add(question);
+	        selectedEvent.addQuestion(newQuestion, bet);
+	        newQuestion = "";
+	        message = "Question added.";
+	    } else {
+	        message = "Question not added. Event null.";
+	    }
 	}
+	
+	public void updateSelectedEvent() {
+		System.out.println("updateSelectedEvent method trigged.");
+		  // No additional code needed
+		}
 
 	public List<Event> getEvents() {
 		return events;
@@ -68,10 +87,12 @@ public class CreateQuestionBean {
 	}
 
 	public Event getSelectedEvent() {
+		System.out.println("getSelectedEvent ");
 		return selectedEvent;
 	}
 
 	public void setSelectedEvent(Event selectedEvent) {
+		System.out.println("setSelectedEvent ");
 		this.selectedEvent = selectedEvent;
 	}
 
@@ -83,22 +104,51 @@ public class CreateQuestionBean {
 		this.selectedDate = selectedDate;
 	}
 	
-	public void onDateSelect(){
-		System.out.println("Método 'obtenerEventos' triggereado.");
-		List<Event> eventos = new ArrayList<Event>();
-		for(Event event: allEvents) {
-			if(event.getEventDate() == this.selectedDate) {
-				eventos.add(event);
-			}
-		}
-		this.events = eventos;
-	}
+	public float getBet() {
+        return bet;
+    }
+
+    public void setBet(float bet) {
+        this.bet = bet;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 	
 	public void updateEvents() {
-//		// retrieve the events for the selected date
-//	    List<Event> eventsForSelectedDate = eventService.getEventsForDate(selectedDate);
-//	    // update the events field of the bean with the retrieved events
-//	    events = eventsForSelectedDate;
+		System.out.println("updateEvents for date: " + selectedDate);
+		events = getEventsForDate(selectedDate);
+		if (!events.isEmpty()) {
+		    selectedEvent = events.get(0);
+		  }
+		System.out.println(selectedEvent.getDescription());
+	}
+	
+	public List<Event> getEventsForDate(Date date) {
+	    Calendar selectedDateCal = Calendar.getInstance();
+	    selectedDateCal.setTime(date);
+	    int selectedYear = selectedDateCal.get(Calendar.YEAR);
+	    int selectedMonth = selectedDateCal.get(Calendar.MONTH);
+	    int selectedDay = selectedDateCal.get(Calendar.DAY_OF_MONTH);
+
+	    List<Event> eventsForDate = new ArrayList<Event>();
+	    for (Event event : allEvents) {
+	        Calendar eventDateCal = Calendar.getInstance();
+	        eventDateCal.setTime(event.getEventDate());
+	        int eventYear = eventDateCal.get(Calendar.YEAR);
+	        int eventMonth = eventDateCal.get(Calendar.MONTH);
+	        int eventDay = eventDateCal.get(Calendar.DAY_OF_MONTH);
+
+	        if (eventYear == selectedYear && eventMonth == selectedMonth && eventDay == selectedDay) {
+	            eventsForDate.add(event);
+	        }
+	    }
+	    return eventsForDate;
 	}
 
 	private void addEvents() {

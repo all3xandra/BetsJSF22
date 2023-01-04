@@ -18,23 +18,31 @@
 					<td>Selecciona una fecha:</td>
 					<td><p:calendar id="fecha" value="#{cq.selectedDate}"
 							navigator="true" mode="popup">
-							<p:ajax event="dateSelect"
-								listener="#{createQuestionBean.updateEvents}" update="events" />
+							<p:ajax event="dateSelect" listener="#{cq.updateEvents}"
+								update="events" />
 						</p:calendar></td>
 				</tr>
 				<tr>
 					<td>Selecciona un evento:</td>
-					<td><p:selectOneMenu id="events" value="#{cq.selectedEvent}">
+					<td><p:selectOneMenu id="events" value="#{cq.selectedEvent}"
+							converter="#{cq.eventConverter}">
 							<f:selectItems value="#{cq.events}" var="event"
 								itemLabel="#{event.description}" itemValue="#{event}" />
+							<p:ajax listener="#{cq.updateSelectedEvent}" />
 						</p:selectOneMenu></td>
 				</tr>
 				<tr>
 					<td>Describe la apuesta:</td>
 					<td><h:inputText value="#{cq.newQuestion}" /></td>
 				</tr>
+				<tr>
+					<td>Introduce la cantidad a apostar:</td>
+					<td><h:inputText value="#{cq.bet}" required="true" /></td>
+				</tr>
 			</table>
-			<p:commandButton value="Crear" action="#{cq.addQuestion}" />
+			<h:commandButton value="Crear" action="#{cq.addQuestion}" />
+			<br />
+			<h:outputText value="#{cq.message}" />
 		</h:form>
 	</h:body>
 </f:view>
