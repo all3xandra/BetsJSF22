@@ -7,6 +7,7 @@ import domain.Question;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @ManagedBean
 @SessionScoped
@@ -15,6 +16,7 @@ public class CreateQuestionBean {
     private List<Question> questions;
     private String newQuestion;
     private Event selectedEvent;
+    private Date selectedDate;
 
     public CreateQuestionBean() {
         events = new ArrayList<Event>();
@@ -60,5 +62,13 @@ public class CreateQuestionBean {
 
     public void setSelectedEvent(Event selectedEvent) {
         this.selectedEvent = selectedEvent;
+    }
+    
+    public Date getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
     }
 }

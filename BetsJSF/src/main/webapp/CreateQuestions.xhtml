@@ -30,13 +30,11 @@
 				</tr>
 				<tr>
 					<td>Describe la apuesta:</td>
-					<td><p:textArea value="#{createQuestionBean.newQuestion}" /></td>
-				</tr>
-				<tr>
-					<p:commandButton value="Crear"
-						action="#{createQuestionBean.addQuestion}" />
+					<td><h:inputText value="#{createQuestionBean.newQuestion}" /></td>
 				</tr>
 			</table>
+			<p:commandButton value="Crear"
+				action="#{createQuestionBean.addQuestion}" />
 		</h:form>
 	</h:body>
 </f:view>
