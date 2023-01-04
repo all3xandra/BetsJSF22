@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16728262510800" configfile="/BetsJSF/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16728262510800" configfile="/BetsJSF/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Home.xhtml" x="156" y="276" id="pf16728311801011" outlinks="pf16728311801012 pf16728311801013" path="/Home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="CreateQuestions.xhtml" x="576" y="151" id="pf16728311801014" inlinks="pf16728311801012" path="/CreateQuestions.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="QueryQuestions.xhtml" x="577" y="384" id="pf16728311801015" inlinks="pf16728311801013" path="/QueryQuestions.xhtml"/>
+  <links id="pf16728311801012" target="pf16728311801014" source="pf16728311801011" outcome="create"/>
+  <links id="pf16728311801013" target="pf16728311801015" source="pf16728311801011" outcome="query"/>
+</pageflow:Pageflow>

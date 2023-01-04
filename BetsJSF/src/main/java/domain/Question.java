@@ -1,13 +1,7 @@
 package domain;
 
-import java.io.*;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-public class Question implements Serializable {
+public class Question {
 	
 	private Integer questionNumber;
 	private String question; 

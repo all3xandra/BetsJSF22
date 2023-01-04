@@ -2,18 +2,6 @@
     <wb-module deploy-name="BetsJSF">
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <dependent-module archiveName="javax.faces-2.0.11.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/BetsJSF/lib/jsf_implem/javax.faces-2.0.11.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/BetsJSF/lib/jsf_implem/jstl-1.2.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="primefaces-4.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/BetsJSF/lib/primefaces/primefaces-4.0.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="javax.xml.bind.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/BetsJSF/lib/javax_xml/javax.xml.bind.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="BetsJSF"/>
         <property name="java-output-path" value="/BetsJSF/build/classes"/>
     </wb-module>
