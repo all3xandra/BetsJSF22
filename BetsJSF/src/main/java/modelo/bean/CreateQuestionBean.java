@@ -41,26 +41,6 @@ public class CreateQuestionBean {
 	    return eventConverter;
 	  }
 
-	public void addQuestion() {
-	    // add the new question to the list of questions
-	    Question question = new Question();
-	    question.setQuestion(newQuestion);
-	    System.out.println(selectedEvent);
-	    if (selectedEvent != null) {
-	        question.setEvent(selectedEvent);
-	        questions.add(question);
-	        selectedEvent.addQuestion(newQuestion, bet);
-	        newQuestion = "";
-	        message = "Question added.";
-	    } else {
-	        message = "Question not added. Event null.";
-	    }
-	}
-	
-	public void updateSelectedEvent() {
-		System.out.println("updateSelectedEvent method trigged.");
-		  // No additional code needed
-		}
 
 	public List<Event> getEvents() {
 		return events;
@@ -119,38 +99,7 @@ public class CreateQuestionBean {
     public void setMessage(String message) {
         this.message = message;
     }
-	
-	public void updateEvents() {
-		System.out.println("updateEvents for date: " + selectedDate);
-		events = getEventsForDate(selectedDate);
-		if (!events.isEmpty()) {
-		    selectedEvent = events.get(0);
-		  }
-		System.out.println(selectedEvent.getDescription());
-	}
-	
-	public List<Event> getEventsForDate(Date date) {
-	    Calendar selectedDateCal = Calendar.getInstance();
-	    selectedDateCal.setTime(date);
-	    int selectedYear = selectedDateCal.get(Calendar.YEAR);
-	    int selectedMonth = selectedDateCal.get(Calendar.MONTH);
-	    int selectedDay = selectedDateCal.get(Calendar.DAY_OF_MONTH);
-
-	    List<Event> eventsForDate = new ArrayList<Event>();
-	    for (Event event : allEvents) {
-	        Calendar eventDateCal = Calendar.getInstance();
-	        eventDateCal.setTime(event.getEventDate());
-	        int eventYear = eventDateCal.get(Calendar.YEAR);
-	        int eventMonth = eventDateCal.get(Calendar.MONTH);
-	        int eventDay = eventDateCal.get(Calendar.DAY_OF_MONTH);
-
-	        if (eventYear == selectedYear && eventMonth == selectedMonth && eventDay == selectedDay) {
-	            eventsForDate.add(event);
-	        }
-	    }
-	    return eventsForDate;
-	}
-
+    
 	private void addEvents() {
 
 		Calendar today = Calendar.getInstance();
@@ -219,4 +168,57 @@ public class CreateQuestionBean {
 		allEvents.add(ev19);
 		allEvents.add(ev20);
 	}
+	
+	public void updateEvents() {
+		System.out.println("updateEvents for date: " + selectedDate);
+		events = getEventsForDate(selectedDate);
+		if (!events.isEmpty()) {
+		    selectedEvent = events.get(0);
+		  }
+		System.out.println(selectedEvent.getDescription());
+	}
+	
+	public List<Event> getEventsForDate(Date date) {
+	    Calendar selectedDateCal = Calendar.getInstance();
+	    selectedDateCal.setTime(date);
+	    int selectedYear = selectedDateCal.get(Calendar.YEAR);
+	    int selectedMonth = selectedDateCal.get(Calendar.MONTH);
+	    int selectedDay = selectedDateCal.get(Calendar.DAY_OF_MONTH);
+
+	    List<Event> eventsForDate = new ArrayList<Event>();
+	    for (Event event : allEvents) {
+	        Calendar eventDateCal = Calendar.getInstance();
+	        eventDateCal.setTime(event.getEventDate());
+	        int eventYear = eventDateCal.get(Calendar.YEAR);
+	        int eventMonth = eventDateCal.get(Calendar.MONTH);
+	        int eventDay = eventDateCal.get(Calendar.DAY_OF_MONTH);
+
+	        if (eventYear == selectedYear && eventMonth == selectedMonth && eventDay == selectedDay) {
+	            eventsForDate.add(event);
+	        }
+	    }
+	    return eventsForDate;
+	}
+	
+	public void addQuestion() {
+	    // add the new question to the list of questions
+	    Question question = new Question();
+	    question.setQuestion(newQuestion);
+	    System.out.println(selectedEvent);
+	    if (selectedEvent != null) {
+	        question.setEvent(selectedEvent);
+	        questions.add(question);
+	        selectedEvent.addQuestion(newQuestion, bet);
+	        newQuestion = "";
+	        message = "Question added.";
+	    } else {
+	        message = "Question not added. Event null.";
+	    }
+	}
+	
+	public void updateSelectedEvent() {
+		System.out.println("updateSelectedEvent method trigged.");
+		  // No additional code needed
+		}
+
 }
