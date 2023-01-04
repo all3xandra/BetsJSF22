@@ -15,5 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="lib/jsf_implem/javax.faces-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/jsf_implem/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/primefaces/primefaces-4.0.jar"/>
+	<classpathentry kind="lib" path="lib/javax_xml/javax.xml.bind.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
