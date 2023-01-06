@@ -9,7 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.convert.Converter;
 
+import businessLogic.BLFacade;
+import businessLogic.BLFacadeImplementation;
 import configuration.UtilDate;
+import dataAccess.HibernateDataAccess;
 import domain.Event;
 import domain.Question;
 
@@ -27,13 +30,16 @@ public class QueryQuestions {
 	private List<Question> allQuestions;
 	private Converter eventConverter;
 	private Converter questionConverter;
+	private static BLFacade ln;
 
 	public QueryQuestions() {
+		ln = new BLFacadeImplementation(new HibernateDataAccess());
+		
 		events = new ArrayList<Event>();
 		questions = new ArrayList<Question>();
-		allEvents = new ArrayList<Event>();
+		allEvents = ln.getAllEvents();
 		allQuestions = new ArrayList<Question>();
-		addEvents();
+//		addEvents();
 		eventConverter = new EventConverter(allEvents);
 		questionConverter = new QuestionConverter(allQuestions);
 	}
