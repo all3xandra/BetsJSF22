@@ -14,10 +14,14 @@
 	<h:body>
 		<h:form>
 			<table>
-			<tr>
-			<td><p:commandButton value="Create Questions" action="create" /></td>
-			<td><p:commandButton value="Query Questions" action="query" /></td>
-			</tr>
+				<tr>
+					<td><h:commandButton value="Create Question"
+							action="#{home.navigateToCreateQuestion}">
+						</h:commandButton></td>
+					<td><h:commandButton value="Query Questions"
+							action="#{home.navigateToQueryQuestions}">
+						</h:commandButton></td>
+				</tr>
 			</table>
 		</h:form>
 	</h:body>

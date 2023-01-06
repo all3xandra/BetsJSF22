@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,7 +22,8 @@ public class Event implements Serializable {
 	private Integer eventNumber;
 	private String description; 
 	private Date eventDate;
-	@OneToMany(targetEntity=Question.class, cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=Question.class, cascade=CascadeType.PERSIST, fetch=FetchType.EAGER,
+			mappedBy="event")
 	private List<Question> questions=new ArrayList<Question>();
 
 	public List<Question> getQuestions() {

@@ -85,6 +85,26 @@ public class BLFacadeImplementation  implements BLFacade {
 		return dates;
 	}
 	
+	/**
+	 * This method retrieves all the questions for a given event
+	 * 
+	 * @param event the event to retrieve the questions from
+	 * @return collection of questions
+	 */
+	@WebMethod public List<Question> getQuestionsForEvent(Event event){
+		List<Question> questions = dbManager.getQuestionsForEvent(event);
+		return questions;
+	}
+	
+	/**
+	 * This method retrieves all the questions from the database
+	 * 
+	 * @return collection of questions
+	 */
+	@WebMethod public List<Question> getAllQuestions(){
+		List<Question> questions = dbManager.getAllQuestions();
+		return questions;
+	}
 
 	/**
 	 * This method invokes the data access to initialize the database with some events and questions.

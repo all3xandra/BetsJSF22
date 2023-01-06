@@ -58,4 +58,19 @@ public interface BLFacade  {
 	 * @return collection of events
 	 */
 	@WebMethod public List<Event> getAllEvents();
+	
+	/**
+	 * This method retrieves all the questions for a given event
+	 * 
+	 * @param event the event to retrieve the questions from
+	 * @return collection of questions
+	 */
+	@WebMethod public List<Question> getQuestionsForEvent(Event event);
+	
+	/**
+	 * This method retrieves all the questions from the database
+	 * 
+	 * @return collection of questions
+	 */
+	@WebMethod public List<Question> getAllQuestions();
 }

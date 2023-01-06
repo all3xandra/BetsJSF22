@@ -19,7 +19,7 @@
 					<td><p:calendar id="fecha" value="#{cq.selectedDate}"
 							navigator="true" mode="popup">
 							<p:ajax event="dateSelect" listener="#{cq.updateEvents}"
-								update="events" />
+								update="@form" process="@this" />
 						</p:calendar></td>
 				</tr>
 				<tr>
@@ -28,7 +28,8 @@
 							converter="#{cq.eventConverter}">
 							<f:selectItems value="#{cq.events}" var="event"
 								itemLabel="#{event.description}" itemValue="#{event}" />
-							<p:ajax listener="#{cq.updateSelectedEvent}" />
+							<p:ajax event="valueChange" listener="#{cq.updateSelectedEvent}"
+								update="@form" process="@this" />
 						</p:selectOneMenu></td>
 				</tr>
 				<tr>
@@ -43,6 +44,8 @@
 			<h:commandButton value="Crear" action="#{cq.addQuestion}" />
 			<br />
 			<h:outputText value="#{cq.message}" />
+			<br />
+			<h:commandButton value="Ver preguntas" action="cq_to_qq" />
 		</h:form>
 	</h:body>
 </f:view>

@@ -12,7 +12,12 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>qq</managed-bean-name>
-		<managed-bean-class>modelo.bean.QueryQuestions</managed-bean-class>
+		<managed-bean-class>modelo.bean.QueryQuestionsBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>home</managed-bean-name>
+		<managed-bean-class>modelo.bean.HomeBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
@@ -29,6 +34,22 @@
 		<navigation-case>
 			<from-outcome>query</from-outcome>
 			<to-view-id>/QueryQuestions.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>CreateQuestions.xhtml</display-name>
+		<from-view-id>/CreateQuestions.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cq_to_qq</from-outcome>
+			<to-view-id>/QueryQuestions.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>QueryQuestions.xhtml</display-name>
+		<from-view-id>/QueryQuestions.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>qq_to_cq</from-outcome>
+			<to-view-id>/CreateQuestions.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

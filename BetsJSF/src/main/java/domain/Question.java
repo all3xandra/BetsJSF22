@@ -17,6 +17,8 @@ public class Question {
 	private String question; 
 	private float betMinimum;
 	private String result; 
+	
+	@ManyToOne(targetEntity=Event.class, cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	private Event event;
 
 	public Question(){
@@ -35,7 +37,6 @@ public class Question {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
-
 		this.event = event;
 	}
 

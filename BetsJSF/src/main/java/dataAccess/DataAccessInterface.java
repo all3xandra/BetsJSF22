@@ -3,6 +3,8 @@ package dataAccess;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebMethod;
+
 import domain.Event;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
@@ -59,5 +61,14 @@ public interface DataAccessInterface {
 	 * @return collection of events
 	 */
 	List<Event> getAllEvents();
+	
+	List<Question> getQuestionsForEvent(Event event);
+	
+	/**
+	 * This method retrieves all the questions from the database
+	 * 
+	 * @return collection of questions
+	 */
+	List<Question> getAllQuestions();
 
 }
